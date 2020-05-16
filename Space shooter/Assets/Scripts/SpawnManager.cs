@@ -5,28 +5,23 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     private IEnumerator coroutine;
-    private GameObject enemyPrefab;
+    [SerializeField]
+    private GameObject enemyPrefab = null;
+    [SerializeField]
+    private GameObject enemyContainer = null;
+    private float _spawnRate = 2.0f;
 
     void Start(){
-        enemyPrefab = GameObject.Find("Enemy");
-        Debug.Log("Starting " + Time.time + " seconds");
-        coroutine = Spawn(2.0f);
-        while (true)
-        {
-            StartCoroutine(coroutine);
-        }
-            
-    }
-    void Update()
-    {
-        
+        coroutine = Spawn(_spawnRate);
+        StartCoroutine(coroutine);
     }
 
     private IEnumerator Spawn(float waitTime)
     {
-        
-        yield return new WaitForSeconds(waitTime);
-        Instantiate(enemyPrefab,new Vector3(0,Random.Range(-9.0f,9.0f),0),Quaternion.identity);
-        
+        while(true){
+            GameObject newEnemy = Instantiate(enemyPrefab,new Vector3(Random.Range(-9.0f,9.0f),6.0f,0.0f),Quaternion.identity);
+            newEnemy.transform.parent = enemyContainer.transform;
+            yield return new WaitForSeconds(waitTime);
+        }
     }
 }

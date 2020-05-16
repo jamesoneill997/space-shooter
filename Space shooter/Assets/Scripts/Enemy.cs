@@ -19,7 +19,7 @@ public class Enemy : MonoBehaviour
         transform.Translate(direction* _speed * Time.deltaTime);
 
         if (transform.position.y <=-6.0f){
-            transform.position = new Vector3(Random.Range(-9.0f,9.0f), 6,0f);
+            transform.position = new Vector3(Random.Range(-9.0f,9.0f), 6.0f, 0.0f);
         }
 
         
