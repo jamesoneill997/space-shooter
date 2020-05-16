@@ -7,7 +7,10 @@ public class Player : MonoBehaviour
 {   
     //speed setting
     [SerializeField]
-    private int _speed = 5;
+    private int _speed = 10;
+    [SerializeField]
+    private GameObject laserPrefab;
+
     public float horizontalInput;
     public float verticalInput;
 
@@ -20,21 +23,39 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {  
+        calculateMovement();
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            Instantiate(laserPrefab, transform.position, Quaternion.identity);
+        }
+    }
+
+    void calculateMovement(){
         //user input
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
-        float horizontalBound = 5.0f;
-        float verticalBound = 9.23f;
+        float horizontalBound = 9.1f;
+        float verticalBound = 3.8f;
 
         Vector3 direction = new Vector3(horizontalInput,verticalInput,0);
-        transform.Translate(direction*_speed*Time.deltaTime);
+        transform.Translate(direction* _speed * Time.deltaTime);
         
+        if(transform.position.y >= 0){
+            transform.position = new Vector3(transform.position.x,0,transform.position.z);
+        }
 
-        if(transform.position.y >= horizontalBound || transform.position.y <= -1*horizontalBound){
-            transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+        else if(transform.position.y < -1*verticalBound){
+            transform.position = new Vector3(transform.position.x, -1*verticalBound,0);
         }
-        else if(transform.position.x >= verticalBound || transform.position.x <= -1*verticalBound){
-            transform.position = new Vector3(-1*transform.position.x, transform.position.y, transform.position.z);
+
+        if(transform.position.x <= -1*horizontalBound){
+            transform.position = new Vector3(horizontalBound, transform.position.y,transform.position.z);
         }
+
+        else if(transform.position.x >= horizontalBound){
+            transform.position = new Vector3(-1*horizontalBound, transform.position.y,transform.position.z);
+        }
+
+
     }
 }
