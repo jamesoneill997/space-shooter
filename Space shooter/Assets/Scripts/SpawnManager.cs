@@ -10,18 +10,19 @@ public class SpawnManager : MonoBehaviour
     [SerializeField]
     private GameObject enemyContainer = null;
     private float _spawnRate = 2.0f;
+    [SerializeField ]
     private Player player;
 
     void Start(){
 
         coroutine = Spawn(_spawnRate);
         StartCoroutine(coroutine);
-        player = GetComponent<Player>();
+        Player player = GameObject.Find("Player").GetComponent<Player>();
     }
 
     private IEnumerator Spawn(float waitTime)
     {
-        while(player.isAlive == true){
+        while(player){
             GameObject newEnemy = Instantiate(enemyPrefab,new Vector3(Random.Range(-9.0f,9.0f),6.0f,0.0f),Quaternion.identity);
             newEnemy.transform.parent = enemyContainer.transform;
             
