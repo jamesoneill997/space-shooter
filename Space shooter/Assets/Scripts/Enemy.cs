@@ -22,8 +22,6 @@ public class Enemy : MonoBehaviour
             transform.position = new Vector3(Random.Range(-9.0f,9.0f), 6.0f, 0.0f);
         }
 
-        
-        
     }
 
     void OnTriggerEnter(Collider other){
