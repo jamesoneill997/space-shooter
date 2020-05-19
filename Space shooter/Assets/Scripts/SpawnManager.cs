@@ -14,7 +14,6 @@ public class SpawnManager : MonoBehaviour
     private Player player;
 
     void Start(){
-
         coroutine = Spawn(_spawnRate);
         StartCoroutine(coroutine);
         Player player = GameObject.Find("Player").GetComponent<Player>();

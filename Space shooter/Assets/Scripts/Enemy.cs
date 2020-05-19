@@ -24,14 +24,14 @@ public class Enemy : MonoBehaviour
 
     }
 
-    void OnTriggerEnter(Collider other){
+    void OnTriggerEnter2D(Collider2D other){
         Debug.Log(other.transform.name);
         if(other.transform.name.Contains("Laser")){
             GameObject.Destroy(other.gameObject);
             GameObject.Destroy(this.gameObject);
         }
 
-        else if(other.transform.name == "Player"){
+        else if(other.transform.name.Contains("Player")){
             Player player = other.transform.GetComponent<Player>();
             player.damage();
             GameObject.Destroy(this.gameObject);
